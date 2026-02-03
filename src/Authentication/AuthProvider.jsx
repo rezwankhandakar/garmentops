@@ -1,37 +1,70 @@
-import { onAuthStateChanged } from 'firebase/auth';
-import React, { useEffect, useState } from 'react';
-import { auth } from './Firebase.config';
-import { AuthContext } from './AuthContext';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  updateProfile,
+} from "firebase/auth";
+import { useEffect, useState } from "react";
+import { auth } from "./Firebase.config";
+import { AuthContext } from "./AuthContext";
 
-const AuthProvider = ({children}) => {
-     const [user, setUser] = useState(null);
+const googleProvider = new GoogleAuthProvider();
+
+const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // ✅ Register
+  const createUser = async (email, password, name, photoURL) => {
+    const result = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
 
-  // 🔹 Track Auth State
+    await updateProfile(result.user, {
+      displayName: name,
+      photoURL,
+    });
+
+    return result;
+  };
+
+  // ✅ Login (Email & Password)
+  const loginUser = (email, password) => {
+    return signInWithEmailAndPassword(auth, email, password);
+  };
+
+  // ✅ Google Login
+  const googleLogin = () => {
+    return signInWithPopup(auth, googleProvider);
+  };
+
+  // 🔹 Auth observer
   useEffect(() => {
-  const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-    setUser(currentUser); // Firebase থেকে user set করা হচ্ছে
-    setLoading(false);    // এখন loading শেষ
-  });
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setLoading(false);
+    });
 
+    return () => unsubscribe();
+  }, []);
 
-  return () => unsubscribe();
-}, []);
-
-   // 🔹 Context value
   const authInfo = {
     user,
     loading,
+    createUser,
+    loginUser,
+    googleLogin,
   };
 
-
-    return (
-            <AuthContext.Provider value={authInfo}>
-                {children}
-            </AuthContext.Provider>
-    );
+  return (
+    <AuthContext.Provider value={authInfo}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
-
 
 export default AuthProvider;
