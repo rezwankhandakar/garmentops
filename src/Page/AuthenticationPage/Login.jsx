@@ -2,8 +2,10 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import useAuth from "../../Hooks/useAuth";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const Login = () => {
+    const axiosSecure = useAxiosSecure()
   const { loginUser, googleLogin } = useAuth();
   const navigate = useNavigate();
 
@@ -28,28 +30,65 @@ const Login = () => {
   };
 
   // 🔹 Google Login
-  const handleGoogleLogin = async () => {
-    try {
-      const result = await googleLogin();
+//   const handleGoogleLogin = async () => {
+//     try {
+//       const result = await googleLogin();
 
-      const googleUser = {
-        name: result.user.displayName,
-        email: result.user.email,
-        photoURL: result.user.photoURL,
-        role: "buyer",
-        status: "pending",
-      };
+//       const googleUser = {
+//         name: result.user.displayName,
+//         email: result.user.email,
+//         photoURL: result.user.photoURL,
+//         role: "buyer",
+//         status: "pending",
+//       };
+//       console.log('googleUser',googleUser)
 
-      // 🔥 এখানে চাইলে MongoDB তে save করবে
-      // await axios.post('/users', googleUser)
+//    await axiosSecure.post("/user", googleUser)
 
-      toast.success("Google login successful!");
-      navigate("/");
-    } catch (error) {
-      toast.error("Google login failed!");
-      console.error(error);
+//       toast.success("Google login successful!");
+//       navigate("/");
+//     } 
+    
+//     catch (error) {
+//       toast.error("Google login failed!");
+//       console.error(error);
+//     }
+//   };
+
+const handleGoogleLogin = async () => {
+  try {
+    const result = await googleLogin();
+
+    const idToken = await result.user.getIdToken();
+
+    const googleUser = {
+      name: result.user.displayName,
+      email: result.user.email,
+      photoURL: result.user.photoURL,
+      role: "buyer",
+      status: "pending",
+    };
+
+   const res = await axiosSecure.post("/user", googleUser);
+
+    // ✅ User new হলে
+    if (res.data.inserted) {
+      toast.success("Account created & login successful!");
     }
-  };
+
+    // ✅ User আগে থাকলে
+    else {
+      toast.success("Login successful!");
+    }
+
+    navigate("/");
+  } catch (error) {
+    toast.error("Google login failed!");
+    console.error(error);
+  }
+};
+
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-base-200">

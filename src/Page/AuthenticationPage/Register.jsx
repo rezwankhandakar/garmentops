@@ -2,8 +2,10 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import useAuth from "../../Hooks/useAuth";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const Register = () => {
+    const axiosSecure = useAxiosSecure()
   const { createUser } = useAuth(); // ✅ () must
   const navigate = useNavigate();
 
@@ -13,25 +15,38 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (data) => {
-    const { name, email, password, photoURL, role } = data;
+const onSubmit = async (data) => {
+  const { name, email, password, photoURL, role } = data;
 
-    try {
-      await createUser(email, password, name, photoURL);
+  try {
 
-      toast.success("Registration successful!");
+    // ✅ Firebase user create
+    const result = await createUser(email, password, name, photoURL);
 
-      // 🔹 Role based redirect
-      if (role === "manager") {
-        navigate("/dashboard/manage-products");
-      } else {
-        navigate("/dashboard/my-orders");
-      }
-    } catch (error) {
-      toast.error(error.message);
-      console.error(error);
+    // ✅ MongoDB তে user save
+    await axiosSecure.post("/user", {
+      name,
+      email,
+      photoURL,
+      role,
+      status: "pending"
+    });
+
+    toast.success("Registration successful!");
+
+    // ✅ Role redirect
+    if (role === "manager") {
+      navigate("/");
+    } else {
+      navigate("/");
     }
-  };
+
+  } catch (error) {
+    toast.error(error.message);
+    console.error(error);
+  }
+};
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-base-200">
@@ -111,3 +126,4 @@ const Register = () => {
 };
 
 export default Register;
+
