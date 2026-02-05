@@ -10,6 +10,8 @@ import ManageUsers from "../Page/DashboardPage/ManageUsers";
 import AdminRoute from "./AdminRoute";
 import ManagerRoute from "./ManagerRoute";
 import AddProduct from "../Page/ManagerPage/AddProduct";
+import BuyerRoute from "./BuyerRoute";
+import MyOrders from "../Page/BuyerPage/MyOrders";
 
 export const router = createBrowserRouter([
     {
@@ -43,6 +45,10 @@ export const router = createBrowserRouter([
             {
                 path: 'add-product',
                 element: <ManagerRoute><AddProduct></AddProduct></ManagerRoute>
+            },
+            {
+                path: 'my-orders',
+                element: <BuyerRoute><MyOrders></MyOrders></BuyerRoute>
             }
         ]
     }
