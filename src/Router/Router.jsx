@@ -9,9 +9,9 @@ import PrivateRoute from "./PrivateRoute";
 import ManageUsers from "../Page/DashboardPage/ManageUsers";
 import AdminRoute from "./AdminRoute";
 import ManagerRoute from "./ManagerRoute";
-import AddProduct from "../Page/ManagerPage/AddProduct";
 import BuyerRoute from "./BuyerRoute";
 import MyOrders from "../Page/BuyerPage/MyOrders";
+import AddProduct from "../Page/ManagerPage/AddProduct";
 
 export const router = createBrowserRouter([
     {
