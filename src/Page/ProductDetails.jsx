@@ -2,11 +2,15 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
+import useAuth from "../Hooks/useAuth";
+import useRole from "../Hooks/useRole";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
+  const { user, loading } = useAuth(); // 🔹 logged-in user + loading state
+  const { role,status } = useRole();
 
   const { data: product, isLoading, isError } = useQuery({
     queryKey: ["product", id],
@@ -16,8 +20,9 @@ const ProductDetails = () => {
     },
   });
 
-  if (isLoading) return <p className="text-center py-10">Loading...</p>;
+  if (isLoading || loading) return <p className="text-center py-10">Loading...</p>;
   if (isError) return <p className="text-center py-10 text-red-500">Failed to load product</p>;
+  if (!user) return <p className="text-center py-10 text-red-500">Please login to order.</p>;
 
   return (
     <section className="max-w-5xl mx-auto px-4 py-12">
@@ -25,7 +30,12 @@ const ProductDetails = () => {
         {/* Images / Demo */}
         <div className="space-y-4">
           {product.images?.map((img, index) => (
-            <img key={index} src={img} alt={product.title} className="w-full h-64 object-contain rounded shadow" />
+            <img
+              key={index}
+              src={img}
+              alt={product.title}
+              className="w-full h-64 object-contain rounded shadow"
+            />
           ))}
           {product.demoVideo && (
             <video controls className="w-full h-64 rounded shadow">
@@ -44,13 +54,23 @@ const ProductDetails = () => {
           <p className="text-sm text-gray-500 mb-1">Minimum Order: {product.moq}</p>
           <p className="text-sm text-gray-500 mb-4">Payment Options: {product.paymentOption}</p>
 
-          {/* Book Now Button */}
-          <button
-            onClick={() => navigate(`/booking/${product._id}`)}
-            className="btn btn-primary mt-4 w-full"
-          >
-            Book / Order Now
-          </button>
+          {/* Order Now Button */}
+        {
+  role === 'buyer' && status === 'approved' ? (
+    <button
+      onClick={() => navigate(`/booking/${product._id}`)}
+      className="btn btn-primary mt-4 w-full"
+    >
+      Order Now
+    </button>
+  ) : (
+    <p className="text-red-500 font-semibold mt-4">
+      Only approved buyers can place orders.
+    </p>
+  )
+}
+
+
         </div>
       </div>
     </section>
