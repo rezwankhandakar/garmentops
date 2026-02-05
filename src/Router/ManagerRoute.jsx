@@ -3,9 +3,9 @@ import useAuth from '../Hooks/useAuth';
 import useRole from '../Hooks/useRole';
 import Forbidden from '../Page/Forbidden';
 
-const AdminRoute = ({children}) => {
-    const {loading}= useAuth()
-    const {role, isLoading}= useRole()
+const ManagerRoute = ({children}) => {
+        const {loading}= useAuth()
+    const {role, status, isLoading}= useRole()
 
     if (loading || isLoading) {
        return (
@@ -15,10 +15,10 @@ const AdminRoute = ({children}) => {
     );
     }
 
-    if (role !== 'admin'){
+    if (role !== 'manager' || status !== 'approved'){
         return <Forbidden></Forbidden>
     }
     return children
 };
 
-export default AdminRoute;
+export default ManagerRoute;

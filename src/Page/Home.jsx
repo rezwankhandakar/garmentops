@@ -1,4 +1,5 @@
 import React from 'react';
+import Forbidden from './Forbidden';
 
 const Home = () => {
     return (

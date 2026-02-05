@@ -8,6 +8,8 @@ import DashboardLayout from "../Page/DashboardPage/DashboardLayout";
 import PrivateRoute from "./PrivateRoute";
 import ManageUsers from "../Page/DashboardPage/ManageUsers";
 import AdminRoute from "./AdminRoute";
+import ManagerRoute from "./ManagerRoute";
+import AddProduct from "../Page/ManagerPage/AddProduct";
 
 export const router = createBrowserRouter([
     {
@@ -37,6 +39,10 @@ export const router = createBrowserRouter([
             {
                 path: 'manage-users',
                 element: <AdminRoute><ManageUsers></ManageUsers></AdminRoute>
+            },
+            {
+                path: 'add-product',
+                element: <ManagerRoute><AddProduct></AddProduct></ManagerRoute>
             }
         ]
     }
