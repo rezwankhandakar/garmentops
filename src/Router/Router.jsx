@@ -12,6 +12,9 @@ import ManagerRoute from "./ManagerRoute";
 import BuyerRoute from "./BuyerRoute";
 import MyOrders from "../Page/BuyerPage/MyOrders";
 import AddProduct from "../Page/ManagerPage/AddProduct";
+import AllProducts from "../Page/AllProducts";
+import ProductDetails from "../Page/ProductDetails";
+import BookingPage from "../Page/BookingPage";
 
 export const router = createBrowserRouter([
     {
@@ -31,7 +34,20 @@ export const router = createBrowserRouter([
             {
                 path: 'login',
                 Component: Login
+            },
+            {
+                path: 'products',
+                Component: AllProducts
+            },
+            {
+                path: 'product/:id',
+                Component: ProductDetails
+            },
+            {
+                path: 'booking/:id',
+                Component: BookingPage
             }
+
         ]
     },
     {

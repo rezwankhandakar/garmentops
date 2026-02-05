@@ -8,35 +8,38 @@ const axiosSecure = axios.create({
 })
 
 const useAxiosSecure = () => {
-    const {user,logout}= useAuth()
-    const navigate = useNavigate()
+    const { user, logout } = useAuth();
+    const navigate = useNavigate();
 
-    useEffect(()=>{
-        const reqInterceptor = axiosSecure.interceptors.request.use(config=>{
-            config.headers.Authorization = `Bearer ${user?.accessToken}`
-            return config
-        })
-        const resInterceptor = axiosSecure.interceptors.response.use((response)=>{
-            return response
-        },(error)=>{
-            console.log(error)
-            const statusCode = error.status;
-            if(statusCode === 401 || statusCode ===403){
-                logout()
-                .then(()=>{
-                    navigate('/login')
-                })
+    useEffect(() => {
+        const reqInterceptor = axiosSecure.interceptors.request.use(config => {
+            if(user?.accessToken) {
+                config.headers.Authorization = `Bearer ${user.accessToken}`;
             }
-            return Promise.reject(error)
-        })
-        return ()=>{
-            axiosSecure.interceptors.request.eject(reqInterceptor)
-            axiosSecure.interceptors.request.eject(resInterceptor)
-        }
+            return config;
+        });
 
-    }, [user,logout,navigate])
-    return axiosSecure
+        const resInterceptor = axiosSecure.interceptors.response.use(
+            response => response,
+            error => {
+                const statusCode = error.response?.status;
+                if(statusCode === 401 || statusCode === 403){
+                    logout()
+                    .then(() => {
+                        navigate('/login');
+                    });
+                }
+                return Promise.reject(error);
+            }
+        );
+
+        return () => {
+            axiosSecure.interceptors.request.eject(reqInterceptor);
+            axiosSecure.interceptors.response.eject(resInterceptor);
+        };
+    }, [user, logout, navigate]);
+
+    return axiosSecure;
 };
 
 export default useAxiosSecure;
-

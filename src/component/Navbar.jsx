@@ -162,7 +162,7 @@ const Navbar = () => {
             className="menu menu-sm dropdown-content mt-3 p-3 shadow bg-base-100 rounded-box w-52"
           >
             <li><NavLink to="/">Home</NavLink></li>
-            <li><NavLink to="/products">All Products</NavLink></li>
+            <li><NavLink to="products">All Products</NavLink></li>
             <li><NavLink to="/about">About Us</NavLink></li>
             <li><NavLink to="/contact">Contact</NavLink></li>
 

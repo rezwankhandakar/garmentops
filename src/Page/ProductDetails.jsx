@@ -1,0 +1,60 @@
+import React from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useParams, useNavigate } from "react-router-dom";
+import useAxiosSecure from "../Hooks/useAxiosSecure";
+
+const ProductDetails = () => {
+  const { id } = useParams();
+  const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
+
+  const { data: product, isLoading, isError } = useQuery({
+    queryKey: ["product", id],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/products/${id}`);
+      return res.data;
+    },
+  });
+
+  if (isLoading) return <p className="text-center py-10">Loading...</p>;
+  if (isError) return <p className="text-center py-10 text-red-500">Failed to load product</p>;
+
+  return (
+    <section className="max-w-5xl mx-auto px-4 py-12">
+      <div className="grid md:grid-cols-2 gap-8">
+        {/* Images / Demo */}
+        <div className="space-y-4">
+          {product.images?.map((img, index) => (
+            <img key={index} src={img} alt={product.title} className="w-full h-64 object-contain rounded shadow" />
+          ))}
+          {product.demoVideo && (
+            <video controls className="w-full h-64 rounded shadow">
+              <source src={product.demoVideo} type="video/mp4" />
+            </video>
+          )}
+        </div>
+
+        {/* Product Info */}
+        <div className="flex flex-col">
+          <h1 className="text-3xl font-bold mb-2">{product.title}</h1>
+          <p className="text-gray-700 mb-2">{product.description}</p>
+          <p className="text-sm text-gray-500 mb-1">Category: {product.category}</p>
+          <p className="text-lg font-semibold mb-1">Price: ${product.price}</p>
+          <p className="text-sm text-gray-500 mb-1">Available Quantity: {product.quantity}</p>
+          <p className="text-sm text-gray-500 mb-1">Minimum Order: {product.moq}</p>
+          <p className="text-sm text-gray-500 mb-4">Payment Options: {product.paymentOption}</p>
+
+          {/* Book Now Button */}
+          <button
+            onClick={() => navigate(`/booking/${product._id}`)}
+            className="btn btn-primary mt-4 w-full"
+          >
+            Book / Order Now
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default ProductDetails;
