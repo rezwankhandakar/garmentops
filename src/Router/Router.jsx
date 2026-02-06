@@ -15,6 +15,7 @@ import AddProduct from "../Page/ManagerPage/AddProduct";
 import AllProducts from "../Page/AllProducts";
 import ProductDetails from "../Page/ProductDetails";
 import BookingPage from "../Page/BookingPage";
+import Payment from "../Page/Payment";
 
 export const router = createBrowserRouter([
     {
@@ -46,7 +47,12 @@ export const router = createBrowserRouter([
             {
                 path: 'booking/:id',
                 Component: BookingPage
+            },
+            {
+                path: "/payment/:id",
+                element: <PrivateRoute><Payment></Payment></PrivateRoute>,
             }
+
 
         ]
     },
