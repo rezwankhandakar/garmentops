@@ -16,6 +16,7 @@ import AllProducts from "../Page/AllProducts";
 import ProductDetails from "../Page/ProductDetails";
 import BookingPage from "../Page/BookingPage";
 import Payment from "../Page/Payment";
+import AdminAllProducts from "../Page/AdminPage/AdminAllProducts";
 
 export const router = createBrowserRouter([
     {
@@ -63,6 +64,10 @@ export const router = createBrowserRouter([
             {
                 path: 'manage-users',
                 element: <AdminRoute><ManageUsers></ManageUsers></AdminRoute>
+            },
+            {
+                path: 'admin-allproducts',
+                element: <AdminRoute><AdminAllProducts></AdminAllProducts></AdminRoute>,
             },
             {
                 path: 'add-product',

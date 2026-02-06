@@ -37,11 +37,33 @@ const ProductDetails = () => {
               className="w-full h-64 object-contain rounded shadow"
             />
           ))}
+
           {product.demoVideo && (
-            <video controls className="w-full h-64 rounded shadow">
-              <source src={product.demoVideo} type="video/mp4" />
-            </video>
-          )}
+  product.demoVideo.includes("youtube.com/embed") ? (
+    <iframe
+      width="100%"
+      height="315"
+      src={product.demoVideo}
+      title={product.title}
+      frameBorder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowFullScreen
+    ></iframe>
+  ) : (
+    <video
+      controls
+      className="w-full rounded shadow"
+      preload="metadata"
+      poster={product.images?.[0]}
+    >
+      <source src={product.demoVideo} type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  )
+)}
+
+
+
         </div>
 
         {/* Product Info */}
@@ -78,3 +100,5 @@ const ProductDetails = () => {
 };
 
 export default ProductDetails;
+
+
