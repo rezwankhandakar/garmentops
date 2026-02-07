@@ -21,7 +21,7 @@ import AllOrders from "../Page/AdminPage/AllOrders";
 import PandingOrders from "../Page/ManagerPage/PandingOrders";
 import ManageProducts from "../Page/ManagerPage/ManageProducts";
 import ApproveOrders from "../Page/ManagerPage/ApproveOrders";
-import MyProfele from "../Page/ManagerPage/MyProfele";
+import MyProfele from "../Page/ManagerPage/MyProfileBuyer";
 import TrackOrders from "../Page/BuyerPage/TrackOrders";
 import MyProfileBuyer from "../Page/BuyerPage/MyProfileBuyer";
 
