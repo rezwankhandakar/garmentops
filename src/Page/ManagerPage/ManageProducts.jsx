@@ -14,7 +14,7 @@ const ManageProducts = () => {
   const { data: products = [], isLoading, isError } = useQuery({
     queryKey: ["all-products", searchTerm],
     queryFn: async () => {
-      const res = await axiosSecure.get("/products"); // token will be sent
+      const res = await axiosSecure.get("/products");
       if (searchTerm) {
         return res.data.filter(
           (p) =>
@@ -114,11 +114,39 @@ const ManageProducts = () => {
             <h3 className="font-bold text-lg mb-4">Update Product</h3>
             <form
               className="space-y-3"
-              onSubmit={(e) => {
+              onSubmit={async (e) => {
                 e.preventDefault();
-                // placeholder logic
-                setSelectedProduct(null);
-                toast.success("Update logic placeholder!");
+                const form = e.target;
+
+                const updatedProduct = {
+                  title: form.title.value,
+                  price: Number(form.price.value),
+                  category: form.category.value,
+                  paymentOption: form.paymentOption.value,
+                  description: form.description.value || "",
+                  demoVideo: form.demoVideo.value || "",
+                  images: form.images.value
+                    .split(",")
+                    .map((img) => img.trim())
+                    .filter((img) => img),
+                };
+
+                try {
+                  const res = await axiosSecure.patch(
+                    `/products/update/${selectedProduct._id}`,
+                    updatedProduct
+                  );
+
+                  if (res.data.success) {
+                    toast.success("Product updated successfully!");
+                    queryClient.invalidateQueries(["all-products"]);
+                    setSelectedProduct(null);
+                  } else {
+                    toast.error(res.data.message || "Failed to update product");
+                  }
+                } catch (err) {
+                  toast.error(err.response?.data?.message || "Failed to update product");
+                }
               }}
             >
               <input
@@ -126,6 +154,7 @@ const ManageProducts = () => {
                 name="title"
                 defaultValue={selectedProduct.title}
                 className="input input-bordered w-full"
+                placeholder="Product Title"
                 required
               />
               <input
@@ -133,6 +162,7 @@ const ManageProducts = () => {
                 name="price"
                 defaultValue={selectedProduct.price}
                 className="input input-bordered w-full"
+                placeholder="Price"
                 required
               />
               <input
@@ -140,7 +170,30 @@ const ManageProducts = () => {
                 name="category"
                 defaultValue={selectedProduct.category}
                 className="input input-bordered w-full"
+                placeholder="Category"
                 required
+              />
+              <input
+                type="text"
+                name="images"
+                defaultValue={selectedProduct.images?.join(", ")}
+                className="input input-bordered w-full"
+                placeholder="Image URLs (comma separated)"
+                required
+              />
+              <input
+                type="text"
+                name="description"
+                defaultValue={selectedProduct.description || ""}
+                className="input input-bordered w-full"
+                placeholder="Description"
+              />
+              <input
+                type="text"
+                name="demoVideo"
+                defaultValue={selectedProduct.demoVideo || ""}
+                className="input input-bordered w-full"
+                placeholder="Demo Video URL"
               />
               <select
                 name="paymentOption"
