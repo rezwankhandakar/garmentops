@@ -122,6 +122,29 @@ const DashboardLayout = () => {
                   </svg>
                   <span className="is-drawer-close:hidden">All Products</span>
                 </Link>
+
+                <Link
+                  to="all-orders"
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  data-tip="All Orders"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    strokeLinejoin="round"
+                    strokeLinecap="round"
+                    strokeWidth="2"
+                    fill="none"
+                    stroke="currentColor"
+                    className="my-1.5 inline-block size-4"
+                  >
+                    <path d="M20 7h-9"></path>
+                    <path d="M14 17H5"></path>
+                    <circle cx="17" cy="17" r="3"></circle>
+                    <circle cx="7" cy="7" r="3"></circle>
+                  </svg>
+                  <span className="is-drawer-close:hidden">All Orders</span>
+                </Link>
               
               </li>
               
@@ -152,6 +175,97 @@ const DashboardLayout = () => {
                   </svg>
                   <span className="is-drawer-close:hidden">Add Product</span>
                 </Link>
+                  <Link
+                  to="manage-products"
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  data-tip="Manage Products"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    strokeLinejoin="round"
+                    strokeLinecap="round"
+                    strokeWidth="2"
+                    fill="none"
+                    stroke="currentColor"
+                    className="my-1.5 inline-block size-4"
+                  >
+                    <path d="M20 7h-9"></path>
+                    <path d="M14 17H5"></path>
+                    <circle cx="17" cy="17" r="3"></circle>
+                    <circle cx="7" cy="7" r="3"></circle>
+                  </svg>
+                  <span className="is-drawer-close:hidden">Manage Products</span>
+                </Link>
+
+                  <Link
+                  to="pending-orders"
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  data-tip="Pending Orders"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    strokeLinejoin="round"
+                    strokeLinecap="round"
+                    strokeWidth="2"
+                    fill="none"
+                    stroke="currentColor"
+                    className="my-1.5 inline-block size-4"
+                  >
+                    <path d="M20 7h-9"></path>
+                    <path d="M14 17H5"></path>
+                    <circle cx="17" cy="17" r="3"></circle>
+                    <circle cx="7" cy="7" r="3"></circle>
+                  </svg>
+                  <span className="is-drawer-close:hidden">Pending Orders</span>
+                </Link>
+
+                  <Link
+                  to="approve-orders"
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  data-tip="Approve Orders"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    strokeLinejoin="round"
+                    strokeLinecap="round"
+                    strokeWidth="2"
+                    fill="none"
+                    stroke="currentColor"
+                    className="my-1.5 inline-block size-4"
+                  >
+                    <path d="M20 7h-9"></path>
+                    <path d="M14 17H5"></path>
+                    <circle cx="17" cy="17" r="3"></circle>
+                    <circle cx="7" cy="7" r="3"></circle>
+                  </svg>
+                  <span className="is-drawer-close:hidden">Approve Orders</span>
+                </Link>
+
+                  <Link
+                  to="my-profile"
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  data-tip="My Profile"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    strokeLinejoin="round"
+                    strokeLinecap="round"
+                    strokeWidth="2"
+                    fill="none"
+                    stroke="currentColor"
+                    className="my-1.5 inline-block size-4"
+                  >
+                    <path d="M20 7h-9"></path>
+                    <path d="M14 17H5"></path>
+                    <circle cx="17" cy="17" r="3"></circle>
+                    <circle cx="7" cy="7" r="3"></circle>
+                  </svg>
+                  <span className="is-drawer-close:hidden">My Profile</span>
+                </Link>
                 </li>
               )
             }
@@ -180,6 +294,52 @@ const DashboardLayout = () => {
                     <circle cx="7" cy="7" r="3"></circle>
                   </svg>
                   <span className="is-drawer-close:hidden">My Orders</span>
+                </Link>
+                 
+                  <Link
+                  to="track-orders"
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  data-tip="Track Orders"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    strokeLinejoin="round"
+                    strokeLinecap="round"
+                    strokeWidth="2"
+                    fill="none"
+                    stroke="currentColor"
+                    className="my-1.5 inline-block size-4"
+                  >
+                    <path d="M20 7h-9"></path>
+                    <path d="M14 17H5"></path>
+                    <circle cx="17" cy="17" r="3"></circle>
+                    <circle cx="7" cy="7" r="3"></circle>
+                  </svg>
+                  <span className="is-drawer-close:hidden">Track Orders</span>
+                </Link>
+
+                 <Link
+                  to="my-profile-buyer"
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  data-tip="My Profile"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    strokeLinejoin="round"
+                    strokeLinecap="round"
+                    strokeWidth="2"
+                    fill="none"
+                    stroke="currentColor"
+                    className="my-1.5 inline-block size-4"
+                  >
+                    <path d="M20 7h-9"></path>
+                    <path d="M14 17H5"></path>
+                    <circle cx="17" cy="17" r="3"></circle>
+                    <circle cx="7" cy="7" r="3"></circle>
+                  </svg>
+                  <span className="is-drawer-close:hidden">My Profile</span>
                 </Link>
                 </li>
               )

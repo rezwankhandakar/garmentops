@@ -10,7 +10,7 @@ const AllProducts = () => {
   const { data: products = [], isLoading, isError } = useQuery({
     queryKey: ["all-products"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/products");
+      const res = await axiosSecure.get("/products/public");
       return res.data;
     },
   });

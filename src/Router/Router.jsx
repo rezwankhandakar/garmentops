@@ -17,6 +17,13 @@ import ProductDetails from "../Page/ProductDetails";
 import BookingPage from "../Page/BookingPage";
 import Payment from "../Page/Payment";
 import AdminAllProducts from "../Page/AdminPage/AdminAllProducts";
+import AllOrders from "../Page/AdminPage/AllOrders";
+import PandingOrders from "../Page/ManagerPage/PandingOrders";
+import ManageProducts from "../Page/ManagerPage/ManageProducts";
+import ApproveOrders from "../Page/ManagerPage/ApproveOrders";
+import MyProfele from "../Page/ManagerPage/MyProfele";
+import TrackOrders from "../Page/BuyerPage/TrackOrders";
+import MyProfileBuyer from "../Page/BuyerPage/MyProfileBuyer";
 
 export const router = createBrowserRouter([
     {
@@ -61,6 +68,7 @@ export const router = createBrowserRouter([
         path: 'dashboard',
         element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
         children: [
+            // ....................AdminRoute..................//
             {
                 path: 'manage-users',
                 element: <AdminRoute><ManageUsers></ManageUsers></AdminRoute>
@@ -70,12 +78,42 @@ export const router = createBrowserRouter([
                 element: <AdminRoute><AdminAllProducts></AdminAllProducts></AdminRoute>,
             },
             {
+                path: 'all-orders',
+                element: <AdminRoute><AllOrders></AllOrders></AdminRoute>
+            },
+            // ...............ManagerRoute......................//
+            {
                 path: 'add-product',
                 element: <ManagerRoute><AddProduct></AddProduct></ManagerRoute>
             },
             {
+                path: 'manage-products',
+                element: <ManagerRoute><ManageProducts></ManageProducts></ManagerRoute>
+            },
+            {
+                path: 'pending-orders',
+                element: <ManagerRoute><PandingOrders></PandingOrders></ManagerRoute>
+            },
+            {
+                path: 'approve-orders',
+                element: <ManagerRoute><ApproveOrders></ApproveOrders></ManagerRoute>
+            },
+            {
+                path: 'my-profile',
+                element: <ManagerRoute><MyProfele></MyProfele></ManagerRoute>
+            },
+            // ...................BuyerRoute.......................//
+            {
                 path: 'my-orders',
                 element: <BuyerRoute><MyOrders></MyOrders></BuyerRoute>
+            },
+            {
+                path: 'track-orders/:orderId',
+                element: <BuyerRoute><TrackOrders></TrackOrders></BuyerRoute>
+            },
+            {
+                path: 'my-profile-buyer',
+                element: <BuyerRoute><MyProfileBuyer></MyProfileBuyer></BuyerRoute>
             }
         ]
     }
