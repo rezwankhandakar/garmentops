@@ -1,11 +1,21 @@
 import React from 'react';
-import { Link, Outlet, Navigate } from 'react-router';
+import { Link, Outlet } from 'react-router';
 import useRole from '../../Hooks/useRole';
+import {
+  HomeIcon,
+  UserGroupIcon,
+  CubeIcon,
+  ShoppingCartIcon,
+  ClockIcon,
+  CheckIcon,
+  PlusIcon,
+  WrenchIcon,
+  UserIcon,
+} from '@heroicons/react/24/outline';
 
 const DashboardLayout = () => {
-  const { role,status, isLoading } = useRole();
+  const { role, status, isLoading } = useRole();
 
-  // Loading state
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -13,7 +23,6 @@ const DashboardLayout = () => {
       </div>
     );
   }
-
 
   return (
     <div className="drawer lg:drawer-open">
@@ -47,9 +56,10 @@ const DashboardLayout = () => {
 
       {/* Drawer Sidebar */}
       <div className="drawer-side is-drawer-close:overflow-visible">
-        <label htmlFor="my-drawer-4" className="drawer-overlay" aria-label="close sidebar"></label>
+        <label htmlFor="my-drawer-4" className="drawer-overlay"></label>
         <div className="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-64">
           <ul className="menu w-full grow">
+
             {/* Home */}
             <li>
               <Link
@@ -57,270 +67,117 @@ const DashboardLayout = () => {
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="Homepage"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  strokeLinejoin="round"
-                  strokeLinecap="round"
-                  strokeWidth="2"
-                  fill="none"
-                  stroke="currentColor"
-                  className="my-1.5 inline-block size-4"
-                >
-                  <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
-                  <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                </svg>
+                <HomeIcon className="h-5 w-5 inline-block mr-2" />
                 <span className="is-drawer-close:hidden">Homepage</span>
               </Link>
             </li>
 
             {/* Admin Routes */}
             {role === 'admin' && (
-              <li>
-                <Link
-                  to="manage-users"
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                  data-tip="Manage Users"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    strokeLinejoin="round"
-                    strokeLinecap="round"
-                    strokeWidth="2"
-                    fill="none"
-                    stroke="currentColor"
-                    className="my-1.5 inline-block size-4"
-                  >
-                    <path d="M20 7h-9"></path>
-                    <path d="M14 17H5"></path>
-                    <circle cx="17" cy="17" r="3"></circle>
-                    <circle cx="7" cy="7" r="3"></circle>
-                  </svg>
-                  <span className="is-drawer-close:hidden">Manage Users</span>
-                </Link>
-
-                <Link
-                  to="admin-allproducts"
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                  data-tip="All Products"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    strokeLinejoin="round"
-                    strokeLinecap="round"
-                    strokeWidth="2"
-                    fill="none"
-                    stroke="currentColor"
-                    className="my-1.5 inline-block size-4"
-                  >
-                    <path d="M20 7h-9"></path>
-                    <path d="M14 17H5"></path>
-                    <circle cx="17" cy="17" r="3"></circle>
-                    <circle cx="7" cy="7" r="3"></circle>
-                  </svg>
-                  <span className="is-drawer-close:hidden">All Products</span>
-                </Link>
-
-                <Link
-                  to="all-orders"
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                  data-tip="All Orders"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    strokeLinejoin="round"
-                    strokeLinecap="round"
-                    strokeWidth="2"
-                    fill="none"
-                    stroke="currentColor"
-                    className="my-1.5 inline-block size-4"
-                  >
-                    <path d="M20 7h-9"></path>
-                    <path d="M14 17H5"></path>
-                    <circle cx="17" cy="17" r="3"></circle>
-                    <circle cx="7" cy="7" r="3"></circle>
-                  </svg>
-                  <span className="is-drawer-close:hidden">All Orders</span>
-                </Link>
-              
-              </li>
-              
-            )}
-            {/* Manager Route */}
-            {
-              role=== 'manager' && status === 'approved' && (
+              <>
                 <li>
                   <Link
+                    to="manage-users"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Manage Users"
+                  >
+                    <UserGroupIcon className="h-5 w-5 inline-block mr-2" />
+                    <span className="is-drawer-close:hidden">Manage Users</span>
+                  </Link>
+
+                  <Link
+                    to="admin-allproducts"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="All Products"
+                  >
+                    <CubeIcon className="h-5 w-5 inline-block mr-2" />
+                    <span className="is-drawer-close:hidden">All Products</span>
+                  </Link>
+
+                  <Link
+                    to="all-orders"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="All Orders"
+                  >
+                    <ShoppingCartIcon className="h-5 w-5 inline-block mr-2" />
+                    <span className="is-drawer-close:hidden">All Orders</span>
+                  </Link>
+                </li>
+              </>
+            )}
+
+            {/* Manager Routes */}
+            {role === 'manager' && status === 'approved' && (
+              <li>
+                <Link
                   to="add-product"
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                   data-tip="Add Product"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    strokeLinejoin="round"
-                    strokeLinecap="round"
-                    strokeWidth="2"
-                    fill="none"
-                    stroke="currentColor"
-                    className="my-1.5 inline-block size-4"
-                  >
-                    <path d="M20 7h-9"></path>
-                    <path d="M14 17H5"></path>
-                    <circle cx="17" cy="17" r="3"></circle>
-                    <circle cx="7" cy="7" r="3"></circle>
-                  </svg>
+                  <PlusIcon className="h-5 w-5 inline-block mr-2" />
                   <span className="is-drawer-close:hidden">Add Product</span>
                 </Link>
-                  <Link
+
+                <Link
                   to="manage-products"
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                   data-tip="Manage Products"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    strokeLinejoin="round"
-                    strokeLinecap="round"
-                    strokeWidth="2"
-                    fill="none"
-                    stroke="currentColor"
-                    className="my-1.5 inline-block size-4"
-                  >
-                    <path d="M20 7h-9"></path>
-                    <path d="M14 17H5"></path>
-                    <circle cx="17" cy="17" r="3"></circle>
-                    <circle cx="7" cy="7" r="3"></circle>
-                  </svg>
+                  <WrenchIcon className="h-5 w-5 inline-block mr-2" />
                   <span className="is-drawer-close:hidden">Manage Products</span>
                 </Link>
 
-                  <Link
+                <Link
                   to="pending-orders"
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                   data-tip="Pending Orders"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    strokeLinejoin="round"
-                    strokeLinecap="round"
-                    strokeWidth="2"
-                    fill="none"
-                    stroke="currentColor"
-                    className="my-1.5 inline-block size-4"
-                  >
-                    <path d="M20 7h-9"></path>
-                    <path d="M14 17H5"></path>
-                    <circle cx="17" cy="17" r="3"></circle>
-                    <circle cx="7" cy="7" r="3"></circle>
-                  </svg>
+                  <ClockIcon className="h-5 w-5 inline-block mr-2" />
                   <span className="is-drawer-close:hidden">Pending Orders</span>
                 </Link>
 
-                  <Link
+                <Link
                   to="approve-orders"
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                   data-tip="Approve Orders"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    strokeLinejoin="round"
-                    strokeLinecap="round"
-                    strokeWidth="2"
-                    fill="none"
-                    stroke="currentColor"
-                    className="my-1.5 inline-block size-4"
-                  >
-                    <path d="M20 7h-9"></path>
-                    <path d="M14 17H5"></path>
-                    <circle cx="17" cy="17" r="3"></circle>
-                    <circle cx="7" cy="7" r="3"></circle>
-                  </svg>
+                  <CheckIcon className="h-5 w-5 inline-block mr-2" />
                   <span className="is-drawer-close:hidden">Approve Orders</span>
                 </Link>
 
-                  <Link
+                <Link
                   to="my-profile"
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                   data-tip="My Profile"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    strokeLinejoin="round"
-                    strokeLinecap="round"
-                    strokeWidth="2"
-                    fill="none"
-                    stroke="currentColor"
-                    className="my-1.5 inline-block size-4"
-                  >
-                    <path d="M20 7h-9"></path>
-                    <path d="M14 17H5"></path>
-                    <circle cx="17" cy="17" r="3"></circle>
-                    <circle cx="7" cy="7" r="3"></circle>
-                  </svg>
+                  <UserIcon className="h-5 w-5 inline-block mr-2" />
                   <span className="is-drawer-close:hidden">My Profile</span>
                 </Link>
-                </li>
-              )
-            }
-            {/* Buyer Route */}
-            {
-              role=== 'buyer' && status === 'approved' && (
-                <li>
-                  <Link
+              </li>
+            )}
+
+            {/* Buyer Routes */}
+            {role === 'buyer' && status === 'approved' && (
+              <li>
+                <Link
                   to="my-orders"
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                   data-tip="My Orders"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    strokeLinejoin="round"
-                    strokeLinecap="round"
-                    strokeWidth="2"
-                    fill="none"
-                    stroke="currentColor"
-                    className="my-1.5 inline-block size-4"
-                  >
-                    <path d="M20 7h-9"></path>
-                    <path d="M14 17H5"></path>
-                    <circle cx="17" cy="17" r="3"></circle>
-                    <circle cx="7" cy="7" r="3"></circle>
-                  </svg>
+                  <ShoppingCartIcon className="h-5 w-5 inline-block mr-2" />
                   <span className="is-drawer-close:hidden">My Orders</span>
                 </Link>
 
-                 <Link
+                <Link
                   to="my-profile-buyer"
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                   data-tip="My Profile"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    strokeLinejoin="round"
-                    strokeLinecap="round"
-                    strokeWidth="2"
-                    fill="none"
-                    stroke="currentColor"
-                    className="my-1.5 inline-block size-4"
-                  >
-                    <path d="M20 7h-9"></path>
-                    <path d="M14 17H5"></path>
-                    <circle cx="17" cy="17" r="3"></circle>
-                    <circle cx="7" cy="7" r="3"></circle>
-                  </svg>
+                  <UserIcon className="h-5 w-5 inline-block mr-2" />
                   <span className="is-drawer-close:hidden">My Profile</span>
                 </Link>
-                </li>
-              )
-            }
+              </li>
+            )}
 
           </ul>
         </div>
