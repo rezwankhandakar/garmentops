@@ -22,7 +22,6 @@ import PandingOrders from "../Page/ManagerPage/PandingOrders";
 import ManageProducts from "../Page/ManagerPage/ManageProducts";
 import ApproveOrders from "../Page/ManagerPage/ApproveOrders";
 import MyProfele from "../Page/ManagerPage/MyProfileBuyer";
-import TrackOrders from "../Page/BuyerPage/TrackOrders";
 import MyProfileBuyer from "../Page/BuyerPage/MyProfileBuyer";
 
 export const router = createBrowserRouter([
@@ -107,14 +106,12 @@ export const router = createBrowserRouter([
                 path: 'my-orders',
                 element: <BuyerRoute><MyOrders></MyOrders></BuyerRoute>
             },
-            {
-                path: 'track-orders/:orderId',
-                element: <BuyerRoute><TrackOrders></TrackOrders></BuyerRoute>
-            },
+
             {
                 path: 'my-profile-buyer',
                 element: <BuyerRoute><MyProfileBuyer></MyProfileBuyer></BuyerRoute>
-            }
+            },
+        
         ]
     }
 ])
